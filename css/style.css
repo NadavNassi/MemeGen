@@ -1,72 +1,16 @@
-@font-face {
-    font-family: impact;
-    src: url('./fonts/impact/impact.ttf');
-}
+@import url('./desktop.css') (min-width: 740px);
+@import url('./basic.css');
+@import url('./helpers.css');
 
-html{
-    font-family: Impact;
-}
 
-body{
-    margin: 0;
-    background-color: #d2dae2;
-    transition: 0.3ms;
-}
 
-main{
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 85% 1fr;
-}
 
-a{
-    cursor: pointer;
-}
 
-button {
-    border: none;
-    border-radius: 0.8rem;
-    padding: 10px;
-    font-size: 2rem;
-    cursor: pointer;
-}
 
-/* HELPERS */
 
-.grid{
-    display: grid;
-}
-
-.clean-list {
-    list-style: none;
-}
-
-.clean-text{
-    text-decoration: none;
-    color: #000;
-
-}
-
-.visible {
-    display: grid;
-}
-
-.hidden{
-    display: none;
-}
-
-.container {
-    margin: 0 auto;
-    max-width: 1050px;
-}
 
 /*===============================*/
-nav{
-    align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    box-shadow: 0px -2px 17px 0px;
-}
+
 
 .logo{
     margin-inline-start: 1rem;
@@ -82,34 +26,44 @@ nav{
     grid-gap: 0 15px;
 }
 
-
+main{
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: 1fr 85% 1fr;
+}
 
 .imgs-gallery{
-    position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
-    grid-template-columns: repeat(5, calc(100% / 5));
-    grid-gap: 10px 5px;
 }
 
 .imgs-gallery img {
-    width: 95%;
+    width: 80%;
     cursor: pointer;
+    margin: 10px auto;
 }
 
 .meme-editor{
     display: none;
     position: relative;
-    width: 100%;
+    width: 80%;
     height: 100%;
     justify-items: center;
     align-content: center;
-    grid-template-columns: 70% 30%;
+    grid-template-rows: 70% 30%;
+    overflow-y:hidden;
+}
+.meme-editor>*{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
 }
 
-/* canvas{
-    letter-spacing: 1rem;
-} */
+canvas{
+    width: 75%;
+}
+
 
 
 
@@ -140,3 +94,4 @@ footer {
     align-self: center;
     justify-self: center;
 }
+

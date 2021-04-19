@@ -1,0 +1,15 @@
+/* HELPERS */
+
+.grid{
+    display: grid;
+}
+
+.clean-list {
+    list-style: none;
+}
+
+.clean-text{
+    text-decoration: none;
+    color: #000;
+
+}

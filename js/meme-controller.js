@@ -14,6 +14,10 @@ function renderImgs() {
     elGallery.innerHTML = strHtml
 }
 
+function onLineSelect(ev){
+    lineSelect(ev)
+}
+
 function onMoveLineUp(ev){
     moveLineUp(ev)
 }
