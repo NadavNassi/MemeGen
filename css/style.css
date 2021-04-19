@@ -4,7 +4,7 @@
 }
 
 html{
-    font-family: Impact,'Arial Narrow Bold', sans-serif;
+    font-family: Impact;
 }
 
 body{
@@ -17,7 +17,7 @@ main{
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-rows: 1fr 80% 1fr;
+    grid-template-rows: 1fr 85% 1fr;
 }
 
 a{
@@ -29,6 +29,7 @@ button {
     border-radius: 0.8rem;
     padding: 10px;
     font-size: 2rem;
+    cursor: pointer;
 }
 
 /* HELPERS */
@@ -105,6 +106,10 @@ nav{
     align-content: center;
     grid-template-columns: 70% 30%;
 }
+
+/* canvas{
+    letter-spacing: 1rem;
+} */
 
 
 

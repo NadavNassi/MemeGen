@@ -14,17 +14,33 @@ function renderImgs() {
     elGallery.innerHTML = strHtml
 }
 
+function onMoveLineUp(ev){
+    moveLineUp(ev)
+}
+
+function onMoveLineDown(ev){
+    moveLineDown(ev)
+}
+
+function onIncreaseFont(ev){
+    increaseFont(ev)
+}
+
+function onDecreaseFont(ev){
+    decreaseFont(ev)
+}
+
 function onGallerySelect() {
     const elGallery = document.querySelector('.imgs-gallery')
     const elEditor = document.querySelector('.meme-editor')
+    resetMemeModel()
     elGallery.style.display = 'grid'
     elEditor.style.display = 'none'
 }
 
 function onImgSelect(imgId){
-    const selectedImg = getImg(imgId)
-    drawImg(selectedImg)
-    drawTxt()
+    setCurrGMeme(imgId)
+    renderCanvas()
     const elGallery = document.querySelector('.imgs-gallery')
     const elEditor = document.querySelector('.meme-editor')
     elGallery.style.display = 'none'
@@ -32,5 +48,5 @@ function onImgSelect(imgId){
 }
 
 function onLineInput(lineTxt) {
-    console.log('lineTxt', lineTxt)
+    changeMemeLine(lineTxt)
 }
