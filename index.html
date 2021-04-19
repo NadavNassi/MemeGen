@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeGene</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="init()">
+    <main>
+        <nav class="grid">
+            <div class="logo">
+                <a onclick="onGallerySelect()" class="clean-text">Logo</a>
+            </div>
+            <div class="nav-btns">
+                <ul class="a-list grid clean-list">
+                    <li><a onclick="onGallerySelect()" class="clean-text">Gallery</a></li>
+                    <li><a href="#" class="clean-text">Memes</a></li>
+                    <li><a href="#" class="clean-text">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="imgs-gallery container grid"></div>
+        <div class="meme-editor container grid">
+            <canvas width="500" height="500"></canvas>
+            <div class="controlers-container grid">
+                <input type="text" class="line-input" oninput="onLineInput(this.value)" />
+                <button class="prev-el">↥</button>
+                <button class="next-el">↧</button>
+            </div>
+        </div>
+        <footer class="grid">
+            <div class="footer-items">
+                IM A FOOTER
+            </div>
+        </footer>
+        <script src="./js/service/meme.editor.service.js"></script>
+        <script src="./js/service/meme.service.js"></script>
+        <script src="./js/meme-controller.js"></script>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+@font-face {
+    font-family: impact;
+    src: url('/css/fonts/impact/impact.ttf');
+}
+
+html{
+    font-family: Impact,'Arial Narrow Bold', sans-serif;
+}
+
+body{
+    margin: 0;
+    background-color: #d2dae2;
+    transition: 0.3ms;
+}
+
+main{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 80% 1fr;
+}
+
+a{
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    border-radius: 0.8rem;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+/* HELPERS */
+
+.grid{
+    display: grid;
+}
+
+.clean-list {
+    list-style: none;
+}
+
+.clean-text{
+    text-decoration: none;
+    color: #000;
+
+}
+
+.visible {
+    display: grid;
+}
+
+.hidden{
+    display: none;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1050px;
+}
+
+/*===============================*/
+nav{
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    box-shadow: 0px -2px 17px 0px;
+}
+
+.logo{
+    margin-inline-start: 1rem;
+}
+
+.nav-btns{
+    margin-inline-end: 15px;
+    justify-self: flex-end;
+}
+
+.a-list{
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0 15px;
+}
+
+
+
+.imgs-gallery{
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    grid-template-columns: repeat(5, calc(100% / 5));
+    grid-gap: 10px 5px;
+}
+
+.imgs-gallery img {
+    width: 95%;
+    cursor: pointer;
+}
+
+.meme-editor{
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-items: center;
+    align-content: center;
+    grid-template-columns: 70% 30%;
+}
+
+
+
+.controlers-container{
+    padding: 10px 0;
+    width: 100%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 10% repeat(6, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.line-input {
+    grid-column: 1 / -1;
+}
+
+.prev-el,
+.next-el{
+    width: fit-content;
+    height:fit-content;
+}
+
+footer {
+    box-shadow: 0px 4px 16px 0px;
+}
+
+.footer-items {
+    align-self: center;
+    justify-self: center;
+}
