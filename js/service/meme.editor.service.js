@@ -24,6 +24,8 @@ let gCtx;
 
 let gIsMovingLine = false
 
+////////////// INIT AND ADD LISTINERS ////////////////
+
 function initCanvas() {
     gCanvas = document.querySelector('canvas')
     gCtx = gCanvas.getContext('2d')
@@ -32,12 +34,21 @@ function initCanvas() {
 }
 
 function addNewEventListeners() {
-    var hammertime = new Hammer(gCanvas);
+    addCanvasListiners()
+    addBtnListiners()
+    addColorsListiners()
+}
+
+function addCanvasListiners(){
+    const hammertime = new Hammer(gCanvas);
     hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
     hammertime.on('panstart', onLinePressed)
     hammertime.on('pan', onLineMove)
     hammertime.on('panend', onPressUp)
     hammertime.on('tap', onLineSelect)
+}
+
+function addBtnListiners(){
     const hammerIncreaseFont = new Hammer(document.querySelector('.increase-font'))
     hammerIncreaseFont.on('tap', onIncreaseFont)
     const hammerDecreaseFont = new Hammer(document.querySelector('.decrease-font'))
@@ -48,16 +59,66 @@ function addNewEventListeners() {
     hammerDeleteLine.on('tap', onDeleteLine)
     const hammerSaveBtn = new Hammer(document.querySelector('.save-btn'))
     hammerSaveBtn.on('tap', onSaveBtn)
+}
+
+function addColorsListiners(){
     document.querySelector('.stroke-color').addEventListener('change', onStrokeColor)
     document.querySelector('.text-color').addEventListener('change', onTextColor)
 }
 
-
+//////////////// RESIZE & DRAWING ///////////////////
 
 function resizeCanvas(width, height){
     gCanvas.width = width
     gCanvas.height = height
 }
+
+function drawRect(x, y, line) {
+    gCtx.beginPath()
+    gCtx.strokeStyle = 'black'
+    gCtx.strokeRect(1, y - parseInt(line.size) + 1, gCanvas.width - 1, 50)
+    gCtx.closePath()
+}
+
+function drawTxt() {
+    gCtx.beginPath()
+    gMeme.lines.forEach(line => {
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = line.stroke
+        gCtx.fillStyle = line.color
+        gCtx.font = `${line.size}px ${line.font}`
+        gCtx.textAlign = line.align
+        gCtx.fillText(line.txt, line.x, line.y)
+        gCtx.strokeText(line.txt, line.x, line.y)
+    })
+    gCtx.closePath()
+}
+
+function resetMemeModel() {
+    gMeme = {
+        selectedImgId: 0,
+        selectedLineIdx: 0,
+        lines: [
+            {
+                txt: 'I never eat falafel',
+                size: '40',
+                align: 'center',
+                font: 'impact',
+                color: 'white',
+                stroke: 'black',
+                x: 250,
+                y: 40
+            }
+        ]
+    }
+    resetInputVal()
+}
+
+function resetInputVal() {
+    document.querySelector('.line-input').value = ''
+}
+
+//////////////// SAVE EVENTS //////////
 
 function saveUserMeme(ev) {
     ev.preventDefault()
@@ -67,9 +128,8 @@ function saveUserMeme(ev) {
     onGallerySelected('user-gallery')
 }
 
-function getDataUrl(){
-    return gCanvas.toDataURL()
-}
+
+///////////// EDIT EVENTS /////////////////
 
 
 function changeFontFam(fontSelected) {
@@ -100,10 +160,6 @@ function changeStrokeColor(ev, selectedStrokeColor) {
     }
 }
 
-function getMemeGlobal() {
-    return gMeme
-}
-
 function deleteLine(ev) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
@@ -112,12 +168,53 @@ function deleteLine(ev) {
     }
 }
 
+
 function newLine(ev) {
     ev.preventDefault()
     const newMemeLine = createNewLine()
     gMeme.lines.push(newMemeLine)
     renderCanvas()
 }
+
+function changeMemeLine(lineTxt) {
+    if (gMeme.selectedLineIdx !== -1) {
+        gMeme.lines[gMeme.selectedLineIdx].txt = lineTxt
+        renderCanvas()
+    }
+}
+
+function increaseFont(ev) {
+    ev.preventDefault()
+    if (gMeme.selectedLineIdx !== -1) {
+        gMeme.lines[gMeme.selectedLineIdx].size++
+        renderCanvas()
+    }
+}
+
+function decreaseFont(ev) {
+    ev.preventDefault()
+    if (gMeme.selectedLineIdx !== -1) {
+        gMeme.lines[gMeme.selectedLineIdx].size--
+        renderCanvas()
+    }
+}
+
+function createNewLine() {
+    return {
+        txt: 'I never eat falafel',
+        size: '40',
+        font: 'impact',
+        align: 'center',
+        color: 'white',
+        stroke: 'black',
+        x: gCanvas.width / 2,
+        y: gCanvas.height / 2
+    }
+}
+
+
+
+///////////////////// TOUCH & MOUSE EVENTS /////////////////
 
 function linePressed(ev) {
     ev.preventDefault()
@@ -152,103 +249,17 @@ function lineSelect(ev) {
     renderCanvas()
 }
 
-function drawRect(x, y, line) {
-    gCtx.beginPath()
-    gCtx.strokeStyle = 'black'
-    gCtx.strokeRect(1, y - parseInt(line.size) + 1, gCanvas.width - 1, 50)
-    gCtx.closePath()
-}
 
-function createNewLine() {
-    return {
-        txt: 'I never eat falafel',
-        size: '40',
-        font: 'impact',
-        align: 'center',
-        color: 'white',
-        stroke: 'black',
-        x: gCanvas.width / 2,
-        y: gCanvas.height / 2
-    }
-}
+///////////////// GETTERS & SETTERS //////////
 
-
-
-function resetMemeModel() {
-    gMeme = {
-        selectedImgId: 0,
-        selectedLineIdx: 0,
-        lines: [
-            {
-                txt: 'I never eat falafel',
-                size: '40',
-                align: 'center',
-                font: 'impact',
-                color: 'white',
-                stroke: 'black',
-                x: 250,
-                y: 40
-            }
-        ]
-    }
-    resetInputVal()
-}
-
-function resetInputVal() {
-    document.querySelector('.line-input').value = ''
+function getMemeGlobal() {
+    return gMeme
 }
 
 function setCurrGMeme(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function renderCanvas() {
-    gCtx.beginPath()
-    var img = new Image()
-    img.src = `/meme-imgs/${gMeme.selectedImgId}.jpg`;
-    img.onload = () => {
-        resizeCanvas(img.width, img.height)
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-        drawTxt()
-        if (gMeme.selectedLineIdx !== -1) drawRect(gMeme.lines[gMeme.selectedLineIdx].x, gMeme.lines[gMeme.selectedLineIdx].y, gMeme.lines[gMeme.selectedLineIdx])
-        else resetInputVal()
-    }
-    gCtx.closePath()
-}
-
-function drawTxt() {
-    gCtx.beginPath()
-    gMeme.lines.forEach(line => {
-        gCtx.lineWidth = 2
-        gCtx.strokeStyle = line.stroke
-        gCtx.fillStyle = line.color
-        gCtx.font = `${line.size}px ${line.font}`
-        gCtx.textAlign = line.align
-        gCtx.fillText(line.txt, line.x, line.y)
-        gCtx.strokeText(line.txt, line.x, line.y)
-    })
-    gCtx.closePath()
-}
-
-function changeMemeLine(lineTxt) {
-    if (gMeme.selectedLineIdx !== -1) {
-        gMeme.lines[gMeme.selectedLineIdx].txt = lineTxt
-        renderCanvas()
-    }
-}
-
-function increaseFont(ev) {
-    ev.preventDefault()
-    if (gMeme.selectedLineIdx !== -1) {
-        gMeme.lines[gMeme.selectedLineIdx].size++
-        renderCanvas()
-    }
-}
-
-function decreaseFont(ev) {
-    ev.preventDefault()
-    if (gMeme.selectedLineIdx !== -1) {
-        gMeme.lines[gMeme.selectedLineIdx].size--
-        renderCanvas()
-    }
+function getDataUrl(){
+    return gCanvas.toDataURL()
 }

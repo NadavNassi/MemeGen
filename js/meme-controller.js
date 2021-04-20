@@ -5,6 +5,8 @@ function init() {
     initCanvas()
 }
 
+//////////////////// RENDERS FUNCTIONS ////////////////////////////
+
 function renderImgs() {
     const elGallery = document.querySelector('.imgs-gallery')
     const imgs = getImgs()
@@ -29,14 +31,92 @@ function renderUserMemes(){
     }
 }
 
+function renderCanvas() {
+    gCtx.beginPath()
+    var img = new Image()
+    img.src = `/meme-imgs/${gMeme.selectedImgId}.jpg`;
+    img.onload = () => {
+        resizeCanvas(img.width, img.height)
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+        drawTxt()
+        if (gMeme.selectedLineIdx !== -1) drawRect(gMeme.lines[gMeme.selectedLineIdx].x, gMeme.lines[gMeme.selectedLineIdx].y, gMeme.lines[gMeme.selectedLineIdx])
+        else resetInputVal()
+    }
+    gCtx.closePath()
+}
+
+////////////////////// GALLERY EVENTS ////////////////////
+
+function onImgSelect(imgId){
+    setCurrGMeme(imgId)
+    resizeCanvas()
+    renderCanvas()
+    noneDisplayGalleries()
+    const elEditor = document.querySelector('.meme-editor')
+    elEditor.classList.remove('none-display')
+    elEditor.classList.add('grid')
+}
 
 
-function onSaveBtn(ev){
-    saveUserMeme(ev)
+function onGallerySelected(selectedGallery) {
+    resetMemeModel()
+    noneDisplayGalleries()
+    const elGallery = document.querySelector('.imgs-gallery')
+    elGallery.classList.remove('none-display')
+    elGallery.classList.add('grid')
+    if(selectedGallery === 'gallery') renderImgs()
+    else renderUserMemes()
+}
+
+function noneDisplayGalleries(){
+    const elGalleries = document.querySelectorAll('.gallery')
+    elGalleries.forEach(gallery => {
+        gallery.classList.remove('grid')
+        gallery.classList.add('none-display')
+    })
+}
+
+////////////////////// MEME EDITORS EVENTS ////////////////////
+
+
+// text events
+
+function onIncreaseFont(ev){
+    increaseFont(ev)
+}
+
+function onDecreaseFont(ev){
+    decreaseFont(ev)
 }
 
 function onChangeFontFam(fontSelected){
     changeFontFam(fontSelected)
+}
+
+function onTextColor(ev){
+    const selectedTextColor = document.querySelector('.text-color').value
+    changeTextColor(ev, selectedTextColor)
+}
+
+function onStrokeColor(ev){
+    const selectedStrokeColor = document.querySelector('.stroke-color').value
+    changeStrokeColor(ev, selectedStrokeColor)
+}
+
+
+// line event
+
+function onNewLine(ev){
+    newLine(ev)
+}
+
+function onLineSelect(ev){
+    lineSelect(ev)
+    const meme = getMemeGlobal()
+    if(meme.selectedLineIdx !== -1){
+        const elInput = document.querySelector('.line-input')
+        elInput.value = meme.lines[meme.selectedLineIdx].txt
+    }
 }
 
 function onBtnToggleAlign(elBtn){
@@ -51,23 +131,23 @@ function onBtnToggleAlign(elBtn){
     }
 }
 
-function onTextColor(ev){
-    const selectedTextColor = document.querySelector('.text-color').value
-    changeTextColor(ev, selectedTextColor)
-}
-
-function onStrokeColor(ev){
-    const selectedStrokeColor = document.querySelector('.stroke-color').value
-    changeStrokeColor(ev, selectedStrokeColor)
-}
-
 function onDeleteLine(ev){
     deleteLine(ev)
 }
 
-function onNewLine(ev){
-    newLine(ev)
+function onLineInput(lineTxt) {
+    changeMemeLine(lineTxt)
 }
+
+//btn events
+
+function onSaveBtn(ev){
+    saveUserMeme(ev)
+}
+
+
+
+////////////////////// TOUCH/MOUSE EVENTS ////////////////////
 
 function onPressUp(ev){
     pressUp(ev)
@@ -79,55 +159,4 @@ function onLineMove(ev){
 
 function onLinePressed(ev) {
     linePressed(ev)
-}
-
-function onLineSelect(ev){
-    lineSelect(ev)
-    const meme = getMemeGlobal()
-    if(meme.selectedLineIdx !== -1){
-        const elInput = document.querySelector('.line-input')
-        elInput.value = meme.lines[meme.selectedLineIdx].txt
-    }
-}
-
-
-function onIncreaseFont(ev){
-    increaseFont(ev)
-}
-
-function onDecreaseFont(ev){
-    decreaseFont(ev)
-}
-
-function onGallerySelected(selectedGallery) {
-    resetMemeModel()
-    noneDisplayGalleries()
-    const elGallery = document.querySelector('.imgs-gallery')
-    elGallery.classList.remove('none-display')
-    elGallery.classList.add('grid')
-    if(selectedGallery === 'gallery') renderImgs()
-    else renderUserMemes()
-}
-
-function onImgSelect(imgId){
-    setCurrGMeme(imgId)
-    resizeCanvas()
-    renderCanvas()
-    noneDisplayGalleries()
-    const elEditor = document.querySelector('.meme-editor')
-    elEditor.classList.remove('none-display')
-    elEditor.classList.add('grid')
-}
-
-function noneDisplayGalleries(){
-    const elGalleries = document.querySelectorAll('.gallery')
-    elGalleries.forEach(gallery => {
-        gallery.classList.remove('grid')
-        gallery.classList.add('none-display')
-    })
-}
-
-
-function onLineInput(lineTxt) {
-    changeMemeLine(lineTxt)
 }

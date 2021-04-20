@@ -3,6 +3,8 @@
 const gImgs = []
 const gUserMemes = []
 
+////////////// INITIATIONS //////////////
+
 _loadUserMemes()
 _createImgsArr()
 
@@ -15,6 +17,8 @@ function _createImgsArr() {
         gImgs.push(img);
     }
 };
+
+///////////// GETTERS & SETTERS /////////////
 
 function getImg(imgId){
     setCurrGMeme(imgId)
@@ -30,6 +34,8 @@ function getImgs() {
 function getUserMemes(){
     return gUserMemes
 }
+
+///////////// STORAGE ////////////////
 
 function _loadUserMemes() {
     const userMemes = loadFromStorage(STORAGE_KEY)
