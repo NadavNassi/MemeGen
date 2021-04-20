@@ -1,6 +1,9 @@
 'use strict'
 
 const gImgs = []
+const gUserMemes = []
+
+_loadUserMemes()
 _createImgsArr()
 
 function _createImgsArr() {
@@ -22,4 +25,17 @@ function getImg(imgId){
 
 function getImgs() {
     return gImgs
+}
+
+function getUserMemes(){
+    return gUserMemes
+}
+
+function _loadUserMemes() {
+    const userMemes = loadFromStorage(STORAGE_KEY)
+    if (userMemes) {
+        userMemes.forEach(meme => {
+            gUserMemes.push(meme)
+        })
+    }
 }

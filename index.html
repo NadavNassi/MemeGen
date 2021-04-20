@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MemeGene</title>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -15,28 +15,41 @@
     <main class="grid">
         <nav class="grid">
             <div class="logo">
-                <a onclick="onGallerySelect()" class="clean-text">Logo</a>
+                <a onclick="onGallerySelected('gallery')" class="clean-text">Logo</a>
             </div>
             <div class="nav-btns">
                 <ul class="a-list grid clean-list">
-                    <li><a onclick="onGallerySelect()" class="clean-text">Gallery</a></li>
-                    <li><a href="#" class="clean-text">Memes</a></li>
+                    <li><a onclick="onGallerySelected('gallery')" class="clean-text">Gallery</a></li>
+                    <li><a onclick="onGallerySelected('user-gallery')" class="clean-text">Memes</a></li>
                     <li><a href="#" class="clean-text">About</a></li>
                 </ul>
             </div>
         </nav>
-        <div class="imgs-gallery grid"></div>
-        <div class="meme-editor grid">
+        <div class="imgs-gallery grid gallery"></div>
+        <div class="meme-editor none-display container gallery">
             <canvas width="500" height="500"></canvas>
             <div class="controlers-container grid">
                 <input type="text" class="line-input" oninput="onLineInput(this.value)" />
-                <button class="line-up-btn">↥</button>
-                <button class="line-down-btn">↧</button>
                 <button class="increase-font">+A</button>
                 <button class="decrease-font">-A</button>
-                <button class="switch-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><rect fill="none" height="24" width="24"/><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M16.17,14.76l-1.1-1.1c0.71-1.33,0.53-3.01-0.59-4.13C13.79,8.84,12.9,8.5,12,8.5c-0.03,0-0.06,0.01-0.09,0.01 L13,9.6l-1.06,1.06L9.11,7.83L11.94,5L13,6.06l-0.96,0.96c1.27,0.01,2.53,0.48,3.5,1.44C17.24,10.17,17.45,12.82,16.17,14.76z M14.89,16.17L12.06,19L11,17.94l0.95-0.95c-1.26-0.01-2.52-0.5-3.48-1.46c-1.71-1.71-1.92-4.35-0.64-6.29l1.1,1.1 c-0.71,1.33-0.53,3.01,0.59,4.13c0.7,0.7,1.63,1.04,2.56,1.01L11,14.4l1.06-1.06L14.89,16.17z"/></svg>
-                </button>
+                <button class="new-line-btn"><i class="fas fa-plus"></i></button>
+                <button class="delete-line-btn"><i class="fas fa-trash"></i></button>
+                <label for="stroke">Stroke color:</label>
+                <input id="stroke" type="color" class="stroke-color">
+                <label for="text">Text color:</label>
+                <input id="text" type="color" class="text-color" value="#ffffff">
+                <button class="align-btn align-left" data-align="right" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-left"></i></button>
+                <button class="align-btn align-center active" data-align="center" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-center"></i></button>
+                <button class="align-btn align-right" data-align="left" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-right"></i></button>
+                <select class="font-select" onchange="onChangeFontFam(this.value)">
+                    <option value="impact">Impact</option>
+                    <option value="ariel">Ariel</option>
+                </select>
+                <button class="save-btn">Save</button>
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="btn" type="submit">Publish</button>
+                  </form>
             </div>
         </div>
         <footer class="grid">
@@ -44,6 +57,8 @@
                 IM A FOOTER
             </div>
         </footer>
+        <script src="./js/service/localstorage.service.js"></script>
+        <script src="./js/service/upload.service.js"></script>
         <script src="./lib/hammer.min.js"></script>
         <script src="./js/service/meme.editor.service.js"></script>
         <script src="./js/service/meme.service.js"></script>
