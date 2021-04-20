@@ -122,10 +122,14 @@ function resetInputVal() {
 
 function saveUserMeme(ev) {
     ev.preventDefault()
-    const memeSrc = getDataUrl()  
-    gUserMemes.push(memeSrc)
-    saveToStorage(STORAGE_KEY, gUserMemes)
-    onGallerySelected('user-gallery')
+    gMeme.selectedLineIdx = -1
+    renderCanvas()
+    setTimeout(() =>{
+        const memeSrc = getDataUrl()  
+        gUserMemes.push(memeSrc)
+        saveToStorage(STORAGE_KEY, gUserMemes)
+        onGallerySelected('user-gallery')
+    }, 100)
 }
 
 
