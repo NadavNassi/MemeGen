@@ -1,7 +1,6 @@
 'use strict'
 const STORAGE_KEY = 'memesDB'
 
-
 let gMeme = {
     selectedImgId: 0,
     selectedLineIdx: 0,
@@ -62,10 +61,14 @@ function resizeCanvas(width, height){
 
 function saveUserMeme(ev) {
     ev.preventDefault()
-    const memeSrc = gCanvas.toDataURL()  
+    const memeSrc = getDataUrl()  
     gUserMemes.push(memeSrc)
     saveToStorage(STORAGE_KEY, gUserMemes)
     onGallerySelected('user-gallery')
+}
+
+function getDataUrl(){
+    return gCanvas.toDataURL()
 }
 
 
@@ -152,7 +155,7 @@ function lineSelect(ev) {
 function drawRect(x, y, line) {
     gCtx.beginPath()
     gCtx.strokeStyle = 'black'
-    gCtx.strokeRect(1, y - parseInt(line.size), gCanvas.width - 1, 50)
+    gCtx.strokeRect(1, y - parseInt(line.size) + 1, gCanvas.width - 1, 50)
     gCtx.closePath()
 }
 

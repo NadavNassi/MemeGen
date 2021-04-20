@@ -29,9 +29,6 @@ function renderUserMemes(){
     }
 }
 
-function onUploadImg(elForm, ev){
-    uploadImage(elForm, ev)
-}
 
 
 function onSaveBtn(ev){

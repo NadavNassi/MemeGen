@@ -38,18 +38,18 @@
                 <input id="stroke" type="color" class="stroke-color">
                 <label for="text">Text color:</label>
                 <input id="text" type="color" class="text-color" value="#ffffff">
-                <button class="align-btn align-left" data-align="right" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-left"></i></button>
-                <button class="align-btn align-center active" data-align="center" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-center"></i></button>
-                <button class="align-btn align-right" data-align="left" onclick="onBtnToggleAlign(this)"><i class="fas fa-align-right"></i></button>
+                <button class="align-btn align-left" data-align="right" onclick="onBtnToggleAlign(this)"><i
+                        class="fas fa-align-left"></i></button>
+                <button class="align-btn align-center active" data-align="center" onclick="onBtnToggleAlign(this)"><i
+                        class="fas fa-align-center"></i></button>
+                <button class="align-btn align-right" data-align="left" onclick="onBtnToggleAlign(this)"><i
+                        class="fas fa-align-right"></i></button>
                 <select class="font-select" onchange="onChangeFontFam(this.value)">
                     <option value="impact">Impact</option>
                     <option value="ariel">Ariel</option>
                 </select>
                 <button class="save-btn">Save</button>
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onUploadImg(this, event)">
-                    <input name="img" id="imgData" type="hidden" />
-                    <button class="btn" type="submit">Publish</button>
-                  </form>
+                <button class="btn">Publish</button>
             </div>
         </div>
         <footer class="grid">
@@ -58,7 +58,6 @@
             </div>
         </footer>
         <script src="./js/service/localstorage.service.js"></script>
-        <script src="./js/service/upload.service.js"></script>
         <script src="./lib/hammer.min.js"></script>
         <script src="./js/service/meme.editor.service.js"></script>
         <script src="./js/service/meme.service.js"></script>
