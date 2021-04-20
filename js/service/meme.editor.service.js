@@ -205,7 +205,7 @@ function setCurrGMeme(imgId) {
 function renderCanvas() {
     gCtx.beginPath()
     var img = new Image()
-    img.src = `./meme-imgs/${gMeme.selectedImgId}.jpg`;
+    img.src = `/meme-imgs/${gMeme.selectedImgId}.jpg`;
     img.onload = () => {
         resizeCanvas(img.width, img.height)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
