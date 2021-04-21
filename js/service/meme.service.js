@@ -12,7 +12,7 @@ function _createImgsArr() {
     for (let i = 0; i < 18; i++) {
         const img = {
             id: i + 1,
-            url: `./meme-imgs/${i + 1}.jpg`
+            url: `./imgs/${i + 1}.jpg`
         }
         gImgs.push(img);
     }
