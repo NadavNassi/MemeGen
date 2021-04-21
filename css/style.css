@@ -25,10 +25,9 @@ main {
   overflow-y: scroll;
 }
 
-main>*{
-    width: 100%;
+main > * {
+  width: 100%;
 }
-
 
 .imgs-gallery {
   grid-template-columns: 1fr 1fr;
@@ -42,7 +41,7 @@ main>*{
   margin: 10px auto;
 }
 
-.meme-editor{
+.meme-editor {
   position: relative;
   width: 80%;
   height: 100%;
@@ -97,30 +96,31 @@ footer {
   justify-self: center;
 }
 
-.screen-cover{
-    width: 100vw;
-    height: 100vh;
-    color: rgb(0, 0, 0);
-    position: fixed;
-    top: 0;
-    left: 0;
+.screen-cover {
+  width: 100vw;
+  height: 100vh;
+  color: rgb(0, 0, 0);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 @media (min-width: 740px) {
   .imgs-gallery {
     grid-template-columns: repeat(5, calc(100% / 5));
     grid-gap: 10px 5px;
-}
+  }
 
-.imgs-gallery img {
+  .imgs-gallery img {
     cursor: pointer;
-}
+  }
 
-.meme-editor {
+  .meme-editor {
     width: 100%;
     grid-template-columns: 70% 30%;
     grid-template-rows: 1fr;
   }
+
   canvas {
     max-width: 450px;
   }
