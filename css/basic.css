@@ -26,7 +26,8 @@ a{
     cursor: pointer;
 }
 
-button {
+button,
+.btn {
     border: none;
     border-radius: 0.8rem;
     padding: 10px;

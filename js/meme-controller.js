@@ -33,13 +33,15 @@ function renderUserMemes(){
 
 function renderCanvas() {
     gCtx.beginPath()
+    const meme = getMemeGlobal()
+    const canvas = getCanvas()
     var img = new Image()
-    img.src = `./imgs/${gMeme.selectedImgId}.jpg`;
+    img.src = `./imgs/${meme.selectedImgId}.jpg`;
     img.onload = () => {
         resizeCanvas(img.width, img.height)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         drawTxt()
-        if (gMeme.selectedLineIdx !== -1) drawRect(gMeme.lines[gMeme.selectedLineIdx].x, gMeme.lines[gMeme.selectedLineIdx].y, gMeme.lines[gMeme.selectedLineIdx])
+        if (meme.selectedLineIdx !== -1) drawRect(meme.lines[meme.selectedLineIdx].x, meme.lines[meme.selectedLineIdx].y, meme.lines[meme.selectedLineIdx])
         else resetInputVal()
     }
     gCtx.closePath()

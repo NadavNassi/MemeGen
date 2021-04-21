@@ -129,7 +129,7 @@ function saveUserMeme(ev) {
         gUserMemes.push(memeSrc)
         saveToStorage(STORAGE_KEY, gUserMemes)
         onGallerySelected('user-gallery')
-    }, 100)
+    }, 1)
 }
 
 
@@ -255,6 +255,10 @@ function lineSelect(ev) {
 
 
 ///////////////// GETTERS & SETTERS //////////
+
+function getCanvas(){
+    return gCanvas
+}
 
 function getMemeGlobal() {
     return gMeme
