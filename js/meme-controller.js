@@ -21,7 +21,10 @@ function renderUserMemes(){
     const userMemes = getUserMemes()
     if(userMemes.length){
         const strHtml = userMemes.map(meme => {
-            return `<img src="${meme}" download="image.png" />`
+            return `<div>
+            <img src="${meme}" download="image.png" />
+            <a class="btn download-btn" href="${meme}" download="image.png">Download now!</a>
+            </div>`
         }).join('\n')
         elGallery.innerHTML = strHtml
     } else {
