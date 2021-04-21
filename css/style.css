@@ -95,7 +95,7 @@ footer {
   font-size: 1.8rem;
 }
 
-.logo::before,
+.a-logo::before,
 .footer-items::before {
   content: 'MemeGen';
 }
