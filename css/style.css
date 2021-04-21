@@ -44,12 +44,14 @@ main > * {
 }
 
 .meme-editor {
-  margin: 0 auto;
   position: relative;
   width: 100%;
   justify-items: center;
   align-content: center;
   grid-template-rows: 40% 60%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding-bottom: 20px;
 }
 
