@@ -236,17 +236,6 @@ function lineMove(ev) {
     ev.preventDefault()
     if (gIsMovingLine) {
         const pos = getNewPos(ev)
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
-        //     if(window.innerWidth > 740){
-        //         const lengthOfTxt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt)
-        //         const halfLength = lengthOfTxt.width / 2
-        //         if (userX + halfLength > gCanvas.width ||
-        //             userX - halfLength < 0 ||
-        //             userY >= gCanvas.height ) {
-        //             pressUp(ev)
-        //         }
-        //     }
         gMeme.lines[gMeme.selectedLineIdx].x = pos.x
         gMeme.lines[gMeme.selectedLineIdx].y = pos.y
         renderCanvas()
