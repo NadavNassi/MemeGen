@@ -5,6 +5,8 @@
 
 .logo {
   justify-self: flex-start;
+  font-family: leckerki;
+  font-size: 2.5rem;
   margin-inline-start: 1rem;
 }
 
@@ -20,9 +22,8 @@
 
 main {
   width: 100%;
-  height: 100%;
-  grid-template-rows: 0.5fr 7fr 0.5fr;
-  overflow-y: scroll;
+  grid-template-rows: 0.2fr 6fr 0.2fr;
+  overflow-x: hidden;
 }
 
 main > * {
@@ -34,6 +35,7 @@ main > * {
   margin-bottom: 10px;
   justify-items: center;
   align-items: center;
+  align-content: center;
 }
 
 .imgs-gallery img {
@@ -42,15 +44,16 @@ main > * {
 }
 
 .meme-editor {
+  margin: 0 auto;
   position: relative;
-  width: 80%;
-  height: 100%;
+  width: 100%;
   justify-items: center;
-  align-items: center;
+  align-content: center;
   grid-template-rows: 40% 60%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  padding-bottom: 20px;
 }
 
 canvas {
@@ -58,9 +61,9 @@ canvas {
 }
 
 .controlers-container {
-  align-self: flex-start;
+  align-self: center;
   padding: 60px 0;
-  width: 100%;
+  width: 80%;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 20% repeat(4, 1fr);
   grid-gap: 5px 5px;
@@ -80,12 +83,6 @@ canvas {
   grid-column: 3 / -1;
 }
 
-.prev-el,
-.next-el {
-  width: fit-content;
-  height: fit-content;
-}
-
 footer {
   box-shadow: 0px 4px 16px 0px;
   width: 100%;
@@ -94,6 +91,13 @@ footer {
 .footer-items {
   align-self: center;
   justify-self: center;
+  font-family: leckerki;
+  font-size: 1.8rem;
+}
+
+.logo::before,
+.footer-items::before {
+  content: 'MemeGen';
 }
 
 .screen-cover {
@@ -106,13 +110,22 @@ footer {
 }
 
 @media (min-width: 740px) {
+  main {
+    width: 100%;
+    grid-template-rows: 1fr 6fr 1fr;
+  }
+
   .imgs-gallery {
     grid-template-columns: repeat(5, calc(100% / 5));
     grid-gap: 10px 5px;
   }
 
-  .imgs-gallery img {
+  .gallery-img {
     cursor: pointer;
+  }
+
+  .user-img {
+    cursor: auto;
   }
 
   .meme-editor {
@@ -122,6 +135,10 @@ footer {
   }
 
   canvas {
-    max-width: 450px;
+    max-width: 100%;
+  }
+
+  .controlers-container{
+    width: 100%;
   }
 }

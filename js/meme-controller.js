@@ -5,13 +5,14 @@ function init() {
     initCanvas()
 }
 
+
 //////////////////// RENDERS FUNCTIONS ////////////////////////////
 
 function renderImgs() {
     const elGallery = document.querySelector('.imgs-gallery')
     const imgs = getImgs()
     let strHtml = imgs.map((img) => {
-        return `<img src="${img.url}" onclick="onImgSelect(${img.id})" />`
+        return `<img class="gallery-img" src="${img.url}" onclick="onImgSelect(${img.id})" />`
     }).join('\n')
     elGallery.innerHTML = strHtml
 }
@@ -22,8 +23,8 @@ function renderUserMemes(){
     if(userMemes.length){
         const strHtml = userMemes.map(meme => {
             return `<div>
-            <img src="${meme}" download="image.png" />
-            <a class="btn download-btn" href="${meme}" download="image.png">Download now!</a>
+            <img class="user-img" src="${meme}" />
+            <a class="btn clean-text" href="${meme}" download="image.png">Download now!</a>
             </div>`
         }).join('\n')
         elGallery.innerHTML = strHtml
@@ -42,7 +43,7 @@ function renderCanvas() {
     img.src = `./imgs/${meme.selectedImgId}.jpg`;
     img.onload = () => {
         resizeCanvas(img.width, img.height)
-        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
         drawTxt()
         if (meme.selectedLineIdx !== -1) drawRect(meme.lines[meme.selectedLineIdx].x, meme.lines[meme.selectedLineIdx].y, meme.lines[meme.selectedLineIdx])
         else resetInputVal()
@@ -51,6 +52,7 @@ function renderCanvas() {
 }
 
 ////////////////////// GALLERY EVENTS ////////////////////
+
 
 function onImgSelect(imgId){
     setCurrGMeme(imgId)
@@ -165,3 +167,5 @@ function onLineMove(ev){
 function onLinePressed(ev) {
     linePressed(ev)
 }
+
+

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MemeGene</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./css/favicon-32x32.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
         integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
@@ -15,9 +16,9 @@
     <main class="grid">
         <nav class="grid">
             <div class="logo">
-                <a onclick="onGallerySelected('gallery')" class="clean-text">Logo</a>
+                <a onclick="onGallerySelected('gallery')" class="clean-text"></a>
             </div>
-            <div class="nav-btns">
+            <div class="nav-btns grid">
                 <ul class="a-list grid clean-list">
                     <li><a onclick="onGallerySelected('gallery')" class="clean-text">Gallery</a></li>
                     <li><a onclick="onGallerySelected('user-gallery')" class="clean-text">Memes</a></li>
@@ -27,9 +28,9 @@
         </nav>
         <div class="imgs-gallery grid gallery"></div>
         <div class="meme-editor none-display container gallery">
-            <canvas width="500" height="500"></canvas>
+                <canvas></canvas>
             <div class="controlers-container grid">
-                <input type="text" class="line-input" oninput="onLineInput(this.value)" />
+                <input type="text" class="line-input" oninput="onLineInput(this.value)" disabled />
                 <button class="increase-font">+A</button>
                 <button class="decrease-font">-A</button>
                 <button class="new-line-btn"><i class="fas fa-plus"></i></button>
@@ -47,6 +48,8 @@
                 <select class="font-select" onchange="onChangeFontFam(this.value)">
                     <option value="impact">Impact</option>
                     <option value="ariel">Ariel</option>
+                    <option value="lobster">Lobster</option>
+                    <option value="zen-dot">Zen dot</option>
                 </select>
                 <button class="save-btn">Save</button>
                 <button class="share-btn">Publish</button>
@@ -54,11 +57,11 @@
         </div>
         <footer class="grid">
             <div class="footer-items">
-                <p>MemeGene</p>
+                
             </div>
         </footer>
         <script src="./js/service/localstorage.service.js"></script>
-        <script src="./lib/hammer.min.js"></script>
+        <!-- <script src="./lib/hammer.min.js"></script> -->
         <script src="./js/service/meme.editor.service.js"></script>
         <script src="./js/service/meme.service.js"></script>
         <script src="./js/meme-controller.js"></script>
