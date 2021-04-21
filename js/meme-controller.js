@@ -43,7 +43,7 @@ function renderCanvas() {
     img.src = `./imgs/${meme.selectedImgId}.jpg`;
     img.onload = () => {
         resizeCanvas(img.width, img.height)
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+        gCtx.drawImage(img, 0, 0, canvas.width, canvas.height)
         drawTxt()
         if (meme.selectedLineIdx !== -1) drawRect(meme.lines[meme.selectedLineIdx].x, meme.lines[meme.selectedLineIdx].y, meme.lines[meme.selectedLineIdx])
         else resetInputVal()

@@ -35,7 +35,6 @@ function initCanvas() {
 
 function addNewEventListeners() {
     addCanvasListiners()
-    addBtnListiners()
     addColorsListiners()
 }
 
@@ -54,20 +53,6 @@ function addTouceListiners() {
     gElCanvas.addEventListener('touchmove', onLineMove)
     gElCanvas.addEventListener('touchstart', onLinePressed)
     gElCanvas.addEventListener('touchend', onPressUp)
-}
-
-
-function addBtnListiners() {
-    document.querySelector('.increase-font').addEventListener('onclick', onIncreaseFont)
-    // hammerIncreaseFont.on('tap', onIncreaseFont)
-    document.querySelector('.decrease-font').addEventListener('onclick', onDecreaseFont)
-    // hammerDecreaseFont.on('tap', onDecreaseFont)
-    document.querySelector('.new-line-btn').addEventListener('onclick', onNewLine)
-    // hammerNewLine.on('tap', onNewLine)
-    document.querySelector('.delete-line-btn').addEventListener('onclick', onDeleteLine)
-    // hammerDeleteLine.on('tap', onDeleteLine)
-    document.querySelector('.save-btn').addEventListener('onclick', onSaveBtn)
-    // hammerSaveBtn.on('tap', onSaveBtn)
 }
 
 function addColorsListiners() {
@@ -129,6 +114,8 @@ function resetMemeModel() {
 
 function resetInputVal() {
     document.querySelector('.line-input').value = ''
+    document.querySelector('.text-color').value = '#ffffff'
+    document.querySelector('.stroke-color').value = '#000000'
 }
 
 //////////////// SAVE EVENTS //////////
@@ -181,6 +168,7 @@ function deleteLine(ev) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+        if(!gMeme.lines.length) gMeme.selectedLineIdx = -1
         renderCanvas()
     }
 }
@@ -287,6 +275,7 @@ function lineSelect(ev) {
     })
     if (gMeme.selectedLineIdx !== -1) {
         elTxtInput.disabled = false
+        elTxtInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
     } else {
         elTxtInput.disabled = true
     }
