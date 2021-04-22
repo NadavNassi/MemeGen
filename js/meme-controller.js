@@ -53,6 +53,9 @@ function renderCanvas() {
 
 ////////////////////// GALLERY EVENTS ////////////////////
 
+function onToggleMenu(){
+    if(window.innerWidth < 740) document.body.classList.toggle('menu-open')
+}
 
 function onImgSelect(imgId){
     setCurrGMeme(imgId)

@@ -13,20 +13,22 @@
 </head>
 
 <body onload="init()">
+    <div class="main-screen" onclick="onToggleMenu()"></div>
     <main class="grid">
-        <nav class="grid">
-            <div class="logo">
-                <a onclick="onGallerySelected('gallery')" class="a-logo clean-text"></a>
-            </div>
-            <div class="nav-btns grid">
-                <ul class="a-list grid clean-list">
-                    <li><a onclick="onGallerySelected('gallery')" class="clean-text">Gallery</a></li>
-                    <li><a onclick="onGallerySelected('user-gallery')" class="clean-text">Memes</a></li>
-                    <li><a href="#" class="clean-text">About</a></li>
-                </ul>
-            </div>
-        </nav>
-        <div class="imgs-gallery grid gallery"></div>
+        <header>
+            <nav class="grid container">
+                <div class="logo">
+                    <a onclick="onGallerySelected('gallery')" class="a-logo clean-text"></a>
+                </div>
+                    <ul class="a-list nav-btns grid clean-list">
+                        <li><a onclick="onGallerySelected('gallery'); onToggleMenu()" class="clean-text">Gallery</a></li>
+                        <li><a onclick="onGallerySelected('user-gallery'); onToggleMenu()" class="clean-text">Memes</a></li>
+                        <li><a href="#" class="clean-text">About</a></li>
+                    </ul>
+                <a href="#" onclick="onToggleMenu()" class="btn-menu clean-text">☰</a>
+            </nav>
+        </header>
+        <div class="imgs-gallery grid gallery container"></div>
         <div class="meme-editor container none-display container gallery">
                 <canvas></canvas>
             <div class="controlers-container grid">
@@ -47,14 +49,19 @@
                     <option value="zen-dot">Zen dot</option>
                 </select>
                 <button class="save-btn" onclick="onSaveBtn(event)">Save</button>
-                <button class="share-btn">Publish</button>
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="share-btn">Publish</button>
+                    <div class="share-container"></div>
+                  </form>
             </div>
         </div>
         <footer class="grid">
             <div class="footer-items">
-                
             </div>
+            <small>all rights reserved</small>
         </footer>
+        <script src="./js/service/upload.servics.js"></script>
         <script src="./js/service/localstorage.service.js"></script>
         <script src="./js/service/meme.editor.service.js"></script>
         <script src="./js/service/meme.service.js"></script>

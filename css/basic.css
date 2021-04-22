@@ -33,7 +33,6 @@ body {
 nav {
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
-  box-shadow: 0px -2px 17px 0px;
   margin-bottom: 20px;
   justify-content: center;
 }
@@ -42,7 +41,7 @@ a {
   cursor: pointer;
 }
 
-button {
+button{
   border: none;
   border-radius: 0.8rem;
   padding: 10px;
