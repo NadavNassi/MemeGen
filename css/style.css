@@ -81,6 +81,21 @@ main {
   grid-column: 3 / -1;
 }
 
+.emoji-selector{
+  grid-column: 1 / -1;
+  width: 100%;
+  background-color: rgb(238, 233, 224);
+  border: 1px solid black;
+}
+
+.emoji-options{
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.emoji-options > * {
+  font-size: 2rem;
+}
+
 .share-btn {
   grid-column: 1 / -1;
 }

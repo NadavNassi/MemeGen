@@ -23,8 +23,8 @@ function renderUserMemes(){
     if(userMemes.length){
         const strHtml = userMemes.map(meme => {
             return `<div>
-            <img class="user-img" src="${meme}" />
-            <a class="btn clean-text" href="${meme}" download="image.png">Download now!</a>
+            <img class="user-img" src="${meme.memeSrc}" onclick="onImgSelect${meme.memeData}" />
+            <p><a class="clean-text" href="${meme.memeSrc}" download="image.png">Download now!</a></p>
             </div>`
         }).join('\n')
         elGallery.innerHTML = strHtml
@@ -35,7 +35,7 @@ function renderUserMemes(){
     }
 }
 
-function renderCanvas(imgId) {
+function renderCanvas() {
     gCtx.beginPath()
     const canvas = getCanvas()
     var img = new Image()
@@ -62,9 +62,9 @@ function onToggleModal(){
     document.body.classList.toggle('modal-open')
 }
 
-function onImgSelect(imgId){
-    setCurrGMeme(imgId)
-    renderCanvas(imgId)
+function onImgSelect(selectedData){
+    setCurrGMeme(selectedData)
+    renderCanvas(selectedData)
     noneDisplayGalleries()
     const elEditor = document.querySelector('.meme-editor')
     const meme = getMemeGlobal()
@@ -124,8 +124,8 @@ function onStrokeColor(ev){
 
 // line event
 
-function onNewLine(ev){
-    newLine(ev)
+function onNewLine(ev, line){
+    newLine(ev, line)
 }
 
 function onLineSelect(ev){

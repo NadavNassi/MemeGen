@@ -130,16 +130,23 @@ function resetInputVal() {
 
 function saveUserMeme(ev) {
     ev.preventDefault()
-    gMeme.selectedLineIdx = -1
+    const memeToSave = (window.innerWidth < BREAK_POINT) ? refactorMemeToSave() : gMeme;
+    memeToSave.selectedLineIdx = -1
     renderCanvas(gMeme.selectedLineIdx)
     setTimeout(() => {
         const memeSrc = getDataUrl()
-        gUserMemes.push(memeSrc)
+        gUserMemes.push({ memeSrc: memeSrc, memeData: memeToSave })
         saveToStorage(STORAGE_KEY, gUserMemes)
     }, 1)
 }
 
-
+function refactorMemeToSave() {
+    const memesGraphic = gMeme.lines.map(line => {
+        line.size = 40
+        line.x *= 2
+        line.y *= 2
+    })
+}
 
 ///////////// EDIT EVENTS /////////////////
 
@@ -182,9 +189,9 @@ function deleteLine(ev) {
 }
 
 
-function newLine(ev) {
+function newLine(ev, line) {
     ev.preventDefault()
-    const newMemeLine = createNewLine()
+    const newMemeLine = createNewLine(line)
     gMeme.lines.push(newMemeLine)
     renderCanvas(gMeme.selectedLineIdx)
 }
@@ -212,9 +219,9 @@ function decreaseFont(ev) {
     }
 }
 
-function createNewLine() {
+function createNewLine(line = 'I never eat falafel') {
     return {
-        txt: 'I never eat falafel',
+        txt: line,
         size: (window.innerWidth < 740) ? '20' : '40',
         font: 'impact',
         align: 'center',
@@ -308,8 +315,13 @@ function getMemeGlobal() {
     return gMeme
 }
 
-function setCurrGMeme(imgId) {
-    gMeme.selectedImgId = imgId
+function setCurrGMeme(memeData) {
+    if (typeof memeData === 'object') {
+        gMeme = memeData
+        console.log('gMeme', gMeme)
+    } else {
+        gMeme.selectedImgId = memeData
+    }
 }
 
 function isEditMeme() {
