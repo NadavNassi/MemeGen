@@ -1,22 +1,27 @@
 'use strict'
 const STORAGE_KEY = 'memesDB'
 
+//////////////DO NOT TOUCH!!!!/////////////
+const BREAK_POINT = 740
+///////////////////////////////////////////
+
 let gMeme = {
     selectedImgId: 0,
-    selectedLineIdx: -1,
+    selectedLineIdx: 0,
+    editMeme: false,
     lines: [
         {
             txt: 'I never eat falafel',
             size: '40',
-            font: 'impact',
             align: 'center',
+            font: 'impact',
             color: 'white',
             stroke: 'black',
             x: 250,
             y: 40
         }
     ]
-}
+};
 
 let gStartPos
 let gElCanvas
@@ -62,9 +67,12 @@ function addColorsListiners() {
 
 //////////////// RESIZE & DRAWING ///////////////////
 
-function resizeCanvas(width, height) {
+function resizeCanvas(img) {
+    const width = (window.innerWidth < BREAK_POINT) ? 250 : img.width
+    const height = (window.innerWidth < BREAK_POINT) ? 250 : img.height
     gElCanvas.width = width
     gElCanvas.height = height
+
 }
 
 function drawRect(x, y, line) {
@@ -123,14 +131,14 @@ function resetInputVal() {
 function saveUserMeme(ev) {
     ev.preventDefault()
     gMeme.selectedLineIdx = -1
-    renderCanvas()
+    renderCanvas(gMeme.selectedLineIdx)
     setTimeout(() => {
         const memeSrc = getDataUrl()
         gUserMemes.push(memeSrc)
         saveToStorage(STORAGE_KEY, gUserMemes)
-        onGallerySelected('user-gallery')
     }, 1)
 }
+
 
 
 ///////////// EDIT EVENTS /////////////////
@@ -139,20 +147,20 @@ function saveUserMeme(ev) {
 function changeFontFam(fontSelected) {
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].font = fontSelected
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
 function changeAlign(selectedAlign) {
     gMeme.lines[gMeme.selectedLineIdx].align = selectedAlign
-    renderCanvas()
+    renderCanvas(gMeme.selectedLineIdx)
 }
 
 function changeTextColor(ev, selectedTextColor) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].color = selectedTextColor
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
@@ -160,7 +168,7 @@ function changeStrokeColor(ev, selectedStrokeColor) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].stroke = selectedStrokeColor
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
@@ -168,8 +176,8 @@ function deleteLine(ev) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines.splice(gMeme.selectedLineIdx, 1)
-        if(!gMeme.lines.length) gMeme.selectedLineIdx = -1
-        renderCanvas()
+        if (!gMeme.lines.length) gMeme.selectedLineIdx = -1
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
@@ -178,13 +186,13 @@ function newLine(ev) {
     ev.preventDefault()
     const newMemeLine = createNewLine()
     gMeme.lines.push(newMemeLine)
-    renderCanvas()
+    renderCanvas(gMeme.selectedLineIdx)
 }
 
 function changeMemeLine(lineTxt) {
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].txt = lineTxt
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
@@ -192,7 +200,7 @@ function increaseFont(ev) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].size++
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
@@ -200,20 +208,20 @@ function decreaseFont(ev) {
     ev.preventDefault()
     if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].size--
-        renderCanvas()
+        renderCanvas(gMeme.selectedLineIdx)
     }
 }
 
 function createNewLine() {
     return {
         txt: 'I never eat falafel',
-        size: '40',
+        size: (window.innerWidth < 740) ? '20' : '40',
         font: 'impact',
         align: 'center',
         color: 'white',
         stroke: 'black',
         x: gElCanvas.width / 2,
-        y: gElCanvas.height / 2
+        y: gElCanvas.height / 2,
     }
 }
 
@@ -226,7 +234,6 @@ function linePressed(ev) {
     const pos = getNewPos(ev)
     lineSelect(ev)
     if (gMeme.selectedLineIdx !== -1) {
-        gStartPos = pos
         gIsMovingLine = true
         document.body.style.cursor = 'grabbing'
     }
@@ -268,7 +275,7 @@ function lineSelect(ev) {
     } else {
         elTxtInput.disabled = true
     }
-    renderCanvas()
+    renderCanvas(gMeme.selectedLineIdx)
 }
 
 
@@ -288,8 +295,10 @@ function getNewPos(ev) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft ,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop - 90
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - 75 - ev.target.clientTop
+            //OFFSET TOP ALWAYS 0, SO I REPLACED IT WITH STATIC INT
+            // y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
         }
     }
     return pos
@@ -303,10 +312,26 @@ function setCurrGMeme(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function getDataUrl() {
-    return gElCanvas.toDataURL()
+function isEditMeme() {
+    return gMeme.editMeme
+}
+
+function setCurrMemeLine(img) {
+    gMeme.lines[gMeme.selectedLineIdx] =
+    {
+        txt: 'I never eat falafel',
+        size: (window.innerWidth < 740) ? '20' : '40',
+        font: 'impact',
+        align: 'center',
+        color: 'white',
+        stroke: 'black',
+        x: (window.innerWidth < 740) ? 125 : 250,
+        y: (window.innerWidth < 740) ? 20 : 40,
+    }
 }
 
 
 
-
+function getDataUrl() {
+    return gElCanvas.toDataURL()
+}

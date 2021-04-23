@@ -1,5 +1,6 @@
 @import url('./basic.css');
 @import url('./helpers.css');
+@import url('./modal.css');
 
 /*===============================*/
 header {
@@ -26,13 +27,11 @@ header {
 
 main {
   width: 100%;
-  grid-template-rows: 1fr 6fr 1fr;
+  grid-template-rows: auto 6fr 1fr;
   overflow-x: hidden;
 }
 
-main > * {
-  width: 100%;
-}
+
 
 .imgs-gallery {
   grid-template-columns: 1fr 1fr;
@@ -54,9 +53,6 @@ main > * {
   grid-template-rows: 40% 60%;
 }
 
-canvas {
-  max-width: 250px;
-}
 
 .controlers-container {
   align-self: center;
@@ -86,7 +82,7 @@ canvas {
 }
 
 .share-btn {
-  grid-column: 3 / -1;
+  grid-column: 1 / -1;
 }
 
 footer {
@@ -104,13 +100,8 @@ footer {
   content: 'MemeGen';
 }
 
-.screen-cover {
-  width: 100vw;
-  height: 100vh;
-  color: rgb(0, 0, 0);
-  position: fixed;
-  top: 0;
-  left: 0;
+.open-modal{
+  grid-column: 1 / -1;
 }
 
 @media (min-width: 740px) {
@@ -141,14 +132,12 @@ footer {
     grid-template-rows: 1fr;
   }
 
-  canvas {
-    max-width: 100%;
-  }
 
   .controlers-container {
     width: 100%;
   }
 }
+
 
 @media (max-width: 740px) {
   .btn-menu{

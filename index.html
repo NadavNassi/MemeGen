@@ -13,7 +13,19 @@
 </head>
 
 <body onload="init()">
+    <div class="modal-screen" onclick="onToggleModal()"></div>
     <div class="main-screen" onclick="onToggleMenu()"></div>
+    <div class="modal">
+        <div class="share-modal">
+            <label>Share on facebook</label>
+            <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                <input name="img" id="imgData" type="hidden" />
+                <button class="share-btn"><i class="fab fa-facebook-f"></i></button>
+                <div class="share-container"></div>
+              </form>
+              <button class="save-btn" onclick="onSaveBtn(event)">Save</button>
+        </div>
+    </div>
     <main class="grid">
         <header>
             <nav class="grid container">
@@ -48,18 +60,13 @@
                     <option value="lobster">Lobster</option>
                     <option value="zen-dot">Zen dot</option>
                 </select>
-                <button class="save-btn" onclick="onSaveBtn(event)">Save</button>
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                    <input name="img" id="imgData" type="hidden" />
-                    <button class="share-btn">Publish</button>
-                    <div class="share-container"></div>
-                  </form>
+                <button class="open-modal" onclick="onToggleModal()">Share</button>
             </div>
         </div>
         <footer class="grid">
             <div class="footer-items">
             </div>
-            <small>all rights reserved</small>
+            <small>SAVE OUR COFFEE RIGHTS!!</small>
         </footer>
         <script src="./js/service/upload.servics.js"></script>
         <script src="./js/service/localstorage.service.js"></script>

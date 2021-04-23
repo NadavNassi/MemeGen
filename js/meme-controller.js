@@ -35,14 +35,15 @@ function renderUserMemes(){
     }
 }
 
-function renderCanvas() {
+function renderCanvas(imgId) {
     gCtx.beginPath()
-    const meme = getMemeGlobal()
     const canvas = getCanvas()
     var img = new Image()
+    const meme = getMemeGlobal()
     img.src = `./imgs/${meme.selectedImgId}.jpg`;
+    if(!isEditMeme())setCurrMemeLine()
     img.onload = () => {
-        resizeCanvas(img.width, img.height)
+        resizeCanvas(img)
         gCtx.drawImage(img, 0, 0, canvas.width, canvas.height)
         drawTxt()
         if (meme.selectedLineIdx !== -1) drawRect(meme.lines[meme.selectedLineIdx].x, meme.lines[meme.selectedLineIdx].y, meme.lines[meme.selectedLineIdx])
@@ -54,15 +55,20 @@ function renderCanvas() {
 ////////////////////// GALLERY EVENTS ////////////////////
 
 function onToggleMenu(){
-    if(window.innerWidth < 740) document.body.classList.toggle('menu-open')
+    if(window.innerWidth < BREAK_POINT) document.body.classList.toggle('menu-open')
+}
+
+function onToggleModal(){
+    document.body.classList.toggle('modal-open')
 }
 
 function onImgSelect(imgId){
     setCurrGMeme(imgId)
-    resizeCanvas()
-    renderCanvas()
+    renderCanvas(imgId)
     noneDisplayGalleries()
     const elEditor = document.querySelector('.meme-editor')
+    const meme = getMemeGlobal()
+    meme.editMeme = true
     elEditor.classList.remove('none-display')
     elEditor.classList.add('grid')
 }
@@ -76,6 +82,8 @@ function onGallerySelected(selectedGallery) {
     elGallery.classList.add('grid')
     if(selectedGallery === 'gallery') renderImgs()
     else renderUserMemes()
+    const meme = getMemeGlobal()
+    meme.editMeme = false
 }
 
 function noneDisplayGalleries(){
@@ -152,7 +160,14 @@ function onLineInput(lineTxt) {
 //btn events
 
 function onSaveBtn(ev){
+    onToggleModal()
     saveUserMeme(ev)
+    onGallerySelected('user-gallery')
+}
+
+function onFbShare(elA){
+    console.dir(elA)
+    elA.parentNode.removeChild(elA)
 }
 
 
