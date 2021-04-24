@@ -3,6 +3,9 @@
 function init() {
     renderImgs()
     initCanvas()
+    if(!gUserMemes.length){
+        onToggleIntroModal()
+    }
 }
 
 
@@ -17,12 +20,16 @@ function renderImgs() {
     elGallery.innerHTML = strHtml
 }
 
+function onToggleIntroModal(){
+    document.body.classList.toggle('intro-open')
+}
+
 function renderUserMemes(){
     const elGallery = document.querySelector('.imgs-gallery')
     const userMemes = getUserMemes()
     if(userMemes.length){
         const strHtml = userMemes.map(meme => {
-            return `<div>
+            return `<div class="user-meme-img">
             <img class="user-img" src="${meme.memeSrc}" onclick="onImgSelect${meme.memeData}" />
             <p><a class="clean-text" href="${meme.memeSrc}" download="image.png">Download now!</a></p>
             </div>`
@@ -160,6 +167,7 @@ function onLineInput(lineTxt) {
 function onRotate(ev, rotate) {
     ev.preventDefault()
     rotateLine(rotate)
+    
 }
 
 //share events

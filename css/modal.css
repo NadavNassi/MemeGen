@@ -1,4 +1,10 @@
-.modal-screen{
+.modal{
+  align-items: center;
+  justify-items: center;
+}
+
+.modal-screen,
+.firsttime-screen{
     position: fixed;
     bottom: 0;
     right: 0;
@@ -12,12 +18,14 @@
     z-index: 1;
   }
   
-  body.modal-open .modal-screen {
+  body.modal-open .modal-screen,
+  body.intro-open .firsttime-screen{
     pointer-events: auto;
     opacity: 1;
   }
   
-  .share-modal{
+  .share-modal,
+  .intro-modal{
     min-width: 45%;
     max-width: 65%;
     position: fixed;
@@ -32,7 +40,8 @@
     transition: opacity 0.8s;
   }
   
-  body.modal-open .share-modal{
+  body.modal-open .share-modal,
+  body.intro-open .intro-modal{
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 10px 10px;
@@ -42,6 +51,10 @@
     z-index: 2;
     pointer-events: auto;
     opacity: 1;
+  }
+
+  body.intro-open .intro-modal{
+    grid-template-columns: 1fr;
   }
   
   .share-modal button {

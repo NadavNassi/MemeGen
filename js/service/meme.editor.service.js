@@ -95,10 +95,6 @@ function drawTxt() {
         gCtx.fillStyle = line.color
         gCtx.font = `${line.size}px ${line.font}`
         gCtx.textAlign = line.align
-        const width = gCtx.measureText(line.txt).width
-        gCtx.translate(line.x, line.y)
-        gCtx.rotate(line.rotate * Math.PI / 180)
-        gCtx.translate(-line.x, -line.y)
         gCtx.fillText(line.txt, line.x, line.y)
         gCtx.strokeText(line.txt, line.x, line.y)
 
@@ -233,13 +229,14 @@ function createNewLine(line = 'I never eat falafel') {
         align: 'center',
         color: 'white',
         stroke: 'black',
+        rotate: 0,
         x: gElCanvas.width / 2,
         y: gElCanvas.height / 2,
     }
 }
 
-function rotateLine(rotate){
-    if(gMeme.selectedLineIdx !== -1) {
+function rotateLine(rotate) {
+    if (gMeme.selectedLineIdx !== -1) {
         gMeme.lines[gMeme.selectedLineIdx].rotate = rotate
         renderCanvas()
     }
@@ -278,7 +275,6 @@ function pressUp(ev) {
 function lineSelect(ev) {
     const pos = getNewPos(ev)
     const elTxtInput = document.querySelector('.line-input')
-    const elRangeInput = document.querySelector('.rotate-range')
     gMeme.selectedLineIdx = gMeme.lines.findIndex(line => {
         const lengthOfTxt = gCtx.measureText(line.txt)
         const halfLength = lengthOfTxt.width / 2
@@ -292,11 +288,9 @@ function lineSelect(ev) {
     })
     if (gMeme.selectedLineIdx !== -1) {
         elTxtInput.disabled = false
-        elRangeInput.disabled = false
         elTxtInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
     } else {
         elTxtInput.disabled = true
-        elRangeInput.disabled = true
     }
     renderCanvas(gMeme.selectedLineIdx)
 }

@@ -15,7 +15,13 @@
 <body onload="init()">
     <div class="modal-screen" onclick="onToggleModal()"></div>
     <div class="main-screen" onclick="onToggleMenu()"></div>
-    <div class="modal">
+    <div class="firsttime-screen" onclick="onToggleIntroModal()"></div>
+    <div class="modal grid">
+        <div class="intro-modal grid">
+            <h1>Welcome to our Meme Generator!</h1> <hr>
+            <p>Here you can create and edit memes and share with the world.</p><hr>
+            <p>should we <button onclick="onToggleIntroModal()">start?</button></p>
+        </div>
         <div class="share-modal">
             <label>Share on facebook</label>
             <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
@@ -24,6 +30,9 @@
                 <div class="share-container"></div>
               </form>
               <button class="save-btn" onclick="onSaveBtn(event)">Save</button>
+        </div>
+        <div class="tutorial-madal">
+
         </div>
     </div>
     <main class="grid">
@@ -68,8 +77,6 @@
                         <option value="🎈" onclick="onNewLine(event, this.value)">🎈</option>
                     </div>
                 </div>
-                <label for="rotate-range">Rotate</label>
-                <input id="rotate-range" class="rotate-range" type="range" min="-180" max="180" value="0" onchange="onRotate(event, this.value)">
                 <button class="open-modal" onclick="onToggleModal()">Share</button>
             </div>
         </div>

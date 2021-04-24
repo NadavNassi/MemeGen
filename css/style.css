@@ -38,11 +38,14 @@ main {
   justify-items: center;
   align-items: center;
   align-content: center;
+  width: 80%;
+
 }
 
 .imgs-gallery img {
-  width: 80%;
+  width: 100%;
   margin: 10px auto;
+  box-shadow: 0 0 15px 0;
 }
 
 .meme-editor {
@@ -96,14 +99,11 @@ main {
   font-size: 2rem;
 }
 
-.rotate-range {
-  width: 100%;
-  grid-column: 2 / -1;
-}
-
 .share-btn {
   grid-column: 1 / -1;
 }
+
+
 
 footer {
   margin-top: 20px;
@@ -136,6 +136,7 @@ footer {
   .imgs-gallery {
     grid-template-columns: repeat(5, calc(100% / 5));
     grid-gap: 10px 5px;
+    /* width: 100%; */
   }
 
   .gallery-img {
@@ -144,6 +145,7 @@ footer {
 
   .user-img {
     cursor: auto;
+    width: 500px;
   }
 
   .meme-editor {
