@@ -157,7 +157,12 @@ function onLineInput(lineTxt) {
     changeMemeLine(lineTxt)
 }
 
-//btn events
+function onRotate(ev, rotate) {
+    ev.preventDefault()
+    rotateLine(rotate)
+}
+
+//share events
 
 function onSaveBtn(ev){
     onToggleModal()

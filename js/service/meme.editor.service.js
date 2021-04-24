@@ -17,6 +17,7 @@ let gMeme = {
             font: 'impact',
             color: 'white',
             stroke: 'black',
+            rotate: 0,
             x: 250,
             y: 40
         }
@@ -94,8 +95,13 @@ function drawTxt() {
         gCtx.fillStyle = line.color
         gCtx.font = `${line.size}px ${line.font}`
         gCtx.textAlign = line.align
+        const width = gCtx.measureText(line.txt).width
+        gCtx.translate(line.x, line.y)
+        gCtx.rotate(line.rotate * Math.PI / 180)
+        gCtx.translate(-line.x, -line.y)
         gCtx.fillText(line.txt, line.x, line.y)
         gCtx.strokeText(line.txt, line.x, line.y)
+
     })
     gCtx.closePath()
 }
@@ -232,6 +238,13 @@ function createNewLine(line = 'I never eat falafel') {
     }
 }
 
+function rotateLine(rotate){
+    if(gMeme.selectedLineIdx !== -1) {
+        gMeme.lines[gMeme.selectedLineIdx].rotate = rotate
+        renderCanvas()
+    }
+}
+
 
 
 ///////////////////// TOUCH & MOUSE EVENTS /////////////////
@@ -265,7 +278,8 @@ function pressUp(ev) {
 function lineSelect(ev) {
     const pos = getNewPos(ev)
     const elTxtInput = document.querySelector('.line-input')
-    gMeme.selectedLineIdx = gMeme.lines.findIndex((line) => {
+    const elRangeInput = document.querySelector('.rotate-range')
+    gMeme.selectedLineIdx = gMeme.lines.findIndex(line => {
         const lengthOfTxt = gCtx.measureText(line.txt)
         const halfLength = lengthOfTxt.width / 2
         const height = lengthOfTxt.fontBoundingBoxAscent + lengthOfTxt.fontBoundingBoxDescent
@@ -278,9 +292,11 @@ function lineSelect(ev) {
     })
     if (gMeme.selectedLineIdx !== -1) {
         elTxtInput.disabled = false
+        elRangeInput.disabled = false
         elTxtInput.value = gMeme.lines[gMeme.selectedLineIdx].txt
     } else {
         elTxtInput.disabled = true
+        elRangeInput.disabled = true
     }
     renderCanvas(gMeme.selectedLineIdx)
 }

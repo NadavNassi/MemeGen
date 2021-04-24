@@ -68,6 +68,8 @@
                         <option value="🎈" onclick="onNewLine(event, this.value)">🎈</option>
                     </div>
                 </div>
+                <label for="rotate-range">Rotate</label>
+                <input id="rotate-range" class="rotate-range" type="range" min="-180" max="180" value="0" onchange="onRotate(event, this.value)">
                 <button class="open-modal" onclick="onToggleModal()">Share</button>
             </div>
         </div>

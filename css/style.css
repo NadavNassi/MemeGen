@@ -96,6 +96,11 @@ main {
   font-size: 2rem;
 }
 
+.rotate-range {
+  width: 100%;
+  grid-column: 2 / -1;
+}
+
 .share-btn {
   grid-column: 1 / -1;
 }
