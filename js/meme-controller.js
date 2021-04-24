@@ -131,6 +131,12 @@ function onStrokeColor(ev){
 
 // line event
 
+function resetInputVal() {
+    document.querySelector('.line-input').value = ''
+    document.querySelector('.text-color').value = '#ffffff'
+    document.querySelector('.stroke-color').value = '#000000'
+}
+
 function onNewLine(ev, line){
     newLine(ev, line)
 }
@@ -183,6 +189,33 @@ function onFbShare(elA){
     elA.parentNode.removeChild(elA)
 }
 
+// drawing events
+
+function drawRect(x, y, line) {
+    const lengthOfTxt = gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt)
+    const halfLength = lengthOfTxt.width / 2
+    const height = lengthOfTxt.fontBoundingBoxAscent + lengthOfTxt.fontBoundingBoxDescent
+    const width = lengthOfTxt.width
+    gCtx.beginPath()
+    gCtx.strokeStyle = 'black'
+    gCtx.strokeRect(x - halfLength - 5, y - parseInt(line.size) + 1, width + 10, height)
+    gCtx.closePath()
+}
+
+function drawTxt() {
+    gCtx.beginPath()
+    gMeme.lines.forEach(line => {
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = line.stroke
+        gCtx.fillStyle = line.color
+        gCtx.font = `${line.size}px ${line.font}`
+        gCtx.textAlign = line.align
+        gCtx.fillText(line.txt, line.x, line.y)
+        gCtx.strokeText(line.txt, line.x, line.y)
+
+    })
+    gCtx.closePath()
+}
 
 
 ////////////////////// TOUCH/MOUSE EVENTS ////////////////////
