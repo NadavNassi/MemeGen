@@ -9,6 +9,11 @@ header {
   margin-bottom: 20px;
 }
 
+.intro-pare::after{
+  content: 'MemeGen!';
+  font-family: leckerki;
+}
+
 .logo {
   justify-self: flex-start;
   font-family: leckerki;
@@ -135,7 +140,6 @@ footer {
 
   .imgs-gallery {
     grid-template-columns: repeat(4, calc(100% / 4));
-    align-items: center;
     gap: 25px 25px;
     width: 80%;
   }

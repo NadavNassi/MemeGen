@@ -181,7 +181,7 @@ function onRotate(ev, rotate) {
 function onSaveBtn(ev){
     onToggleModal()
     saveUserMeme(ev)
-    onGallerySelected('user-gallery')
+    onGallerySelected('gallery')
 }
 
 function onFbShare(elA){
